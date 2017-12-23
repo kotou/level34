@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>珠宝首饰</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #666;
+        }
+
+        .clearfix::after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+
+        body {
+            font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+            color: #666;
+        }
+
+        .layout {
+            width: 700px;
+            margin: 10px auto;
+        }
+
+        .box {
+            width: 220px;
+            float: left;
+            position: relative;
+            background: #fff;
+            margin-left: 20px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid #eee;
+        }
+
+        .fa-box {
+            margin-left: 0px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border: 1px solid #c81623;
+            font-style: normal;
+            color: #c81623;
+            cursor: pointer;
+            background: #fff;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .btn.tag {
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+
+        .delete {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .price {
+            margin-top: 15px;
+        }
+
+        .price > a {
+            color: #c81623;
+        }
+
+        .cover {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .appear {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="header">珠宝首饰</div>
+    <div class="wrap clearfix">
+        <div class="box fa-box">
+            <div class="cover"><i class="btn delete">删除</i></div>
+            <div class="panel">
+                <a href="#"><img src="https://picsum.photos/200/200/?image=1" alt=""></a>
+                <div><a href="#">藏美千足金</a></div>
+                <div class="price"><a href="#">￥1699.00</a></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="cover"><i class="btn delete">删除</i></div>
+            <div class="panel">
+                <a href="#"><img src="https://picsum.photos/200/200/?image=2" alt=""></a>
+                <div><a href="#">和田玉</a></div>
+                <div class="price"><a href="#">￥1699.00</a></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="cover"><i class="btn delete">删除</i></div>
+            <div class="panel">
+                <a href="#"><img src="https://picsum.photos/200/200/?image=3" alt=""></a>
+                <div><a href="#">路路通吊坠</a></div>
+                <div class="price"><a href="#">￥1699.00</a></div>
+            </div>
+        </div>
+    </div>
+    <i class="btn tag add">添加</i>
+    <i class="btn tag edit">编辑</i>
+</div>
+<script>
+    $('.edit').on('click', function () {
+        $('.cover').toggleClass('appear')
+    })
+    $('.wrap').on('click', '.delete', function (e) {
+        $(this).parents('.box').remove()
+    })
+
+    function getBoxHtml(box) {
+        var html = ''
+        html += '<div class="box fa-box">'
+        html += '<div class="cover"><i class="btn delete">删除</i></div>'
+        html += '<div class="panel">'
+        html += '<a href="#">'
+        html += '<img src="' + box.img + '" alt="">'
+        html += '</a>'
+        html += '<div class="name">'
+        html += '<a href="#">' + box.name + '</a>'
+        html += '</div>'
+        html += '<div class="price">'
+        html += '<a href="#">' + box.price + '</a>'
+        html += '</div>'
+        html += '</div>'
+        html += '</div>'
+        return html
+    }
+
+    function getData() {
+        var arr = []
+        for (var i = 0; i < 3; i++) {
+            var random = Math.floor(Math.random() * 100)
+            var obj = {
+                img: 'https://picsum.photos/200/200/?image=' + random,
+                name: '珂兰 黄金手 猴哥款',
+                price: '￥' + random
+            }
+            arr.push(obj)
+        }
+        return arr
+    }
+
+    $('.add').on('click', function () {
+        $.each(getData(), function (index, box) {
+            $('.wrap').append(getBoxHtml(box))
+        })
+        $('.cover').removeClass('appear')
+    })
+</script>
+</body>
+</html>
